@@ -5,7 +5,7 @@ import sys
 sys.path.append("geometries_TK/")
 
 from spiral import construct_spiral
-from circular import construct_circular
+from circular import *
 from helic import *
 from linear import construct_linear
 
@@ -63,22 +63,32 @@ def assembly_antenna( antenna_index, parameters ):
     elif antenna_index == 4:
         #   get necessary values.
         L = parameters["Lenght"]
-        X1 = round( X + R*np.cos(0) )
-        Y1 = round( Y + R*np.sin(0) )
+        X1 = round( X + R*np.cos(np.pi/4) )
+        Y1 = round( Y + R*np.sin(np.pi/4) )
 
-        X2 = round( X + R*np.cos(np.pi) )
-        Y2 = round( Y + R*np.sin(np.pi) )
+        X3 = round( X + R*np.cos(3*np.pi/4) )
+        Y3 = round( Y + R*np.sin(3*np.pi/4) )
 
-        circular_coord_1 =  construct_circular( R, X, Y, round(Z-(L/2)) )
-        circular_coord_2 =  construct_circular( R, X, Y, round(Z+(L/2)) )
+        X4 = round( X + R*np.cos(5*np.pi/4) )
+        Y4 = round( Y + R*np.sin(5*np.pi/4) )
+
+        X2 = round( X + R*np.cos(7*np.pi/4) )
+        Y2 = round( Y + R*np.sin(7*np.pi/4) ) 
+
+        circular_coord_1 =  construct_circular_portion( R, X, Y, round(Z-(L/2)) )
+        circular_coord_2 =  construct_circular_portion( R, X, Y, round(Z+(L/2)) )
 
         linear_coord_1 =    construct_linear( X1, Y1, round(Z-(L/2)), round(Z+(L/2)) )
         linear_coord_2 =    construct_linear( X2, Y2, round(Z-(L/2)), round(Z+(L/2)) )
+        linear_coord_3 =    construct_linear( X3, Y3, round(Z-(L/2)), round(Z+(L/2)) )
+        linear_coord_4 =    construct_linear( X4, Y4, round(Z-(L/2)), round(Z+(L/2)) )
 
         return {"Section_1":    circular_coord_1,
                 "Section_2":    circular_coord_2,
                 "Section_3":    linear_coord_1,
-                "Section_4":    linear_coord_2 }
+                "Section_4":    linear_coord_2,
+                "Section_5":    linear_coord_3,
+                "Section_6":    linear_coord_4 }
     
     #   Ensemble RH-Helical antenna
     elif antenna_index == 5:
