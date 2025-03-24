@@ -10,3 +10,12 @@ def save_section(coordinates, directory, section_name):
         for coord in coordinates:
             file.write(f"{coord[0]}, {coord[1]}, {coord[2]}\n")
     return file_path
+    
+def save_input_params(parameters, directory):
+    file_path = f"{directory}/Input_Parameters.txt"
+    with open(file_path, "w") as file:
+        for param, value in parameters.items():
+            file.write(f"{param}: {value}\n")
+    return file_path
+    
+    

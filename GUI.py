@@ -20,7 +20,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
 from geometries_TK.construct_antenna import *
-from utils.file_utils import save_section
+from utils.file_utils import *
 from utils.plot_functions import plot_antenna
 
 
@@ -139,6 +139,9 @@ class HelicalAntennaDesigner(QMainWindow):
             if directory:
                 for section_name, coordinates in sections.items():
                     save_section(coordinates, directory, section_name)
+                 
+                #save input parameters    
+                save_input_params(parameters, directory)
                 QMessageBox.information(self, "Success", "All sections saved successfully.")
 
             # Plot the combined antenna using Plotly
